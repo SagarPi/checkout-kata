@@ -1,6 +1,8 @@
 package kata;
 
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -30,11 +32,7 @@ public class CheckoutTest {
 
     @Test
     void checkoutMultipleSingleItemsShouldReturnAdditionOfPriceOfEachItems() {
-        HashSet<Item> allSingleItems = new HashSet<>();
-        allSingleItems.add(Item.A);
-        allSingleItems.add(Item.B);
-        allSingleItems.add(Item.C);
-        allSingleItems.add(Item.D);
+        Set<Item> allSingleItems = Set.of(Item.A, Item.B, Item.C, Item.D);
 
         Cart cart = new Cart();
         allSingleItems.forEach(cart::addItem);
@@ -45,12 +43,19 @@ public class CheckoutTest {
 
     @Test
     void shouldCalculatePriceOfMultipleItemAsPerDiscountedRate() {
+        List<Item> items = Arrays.asList(Item.A, Item.A, Item.A);
+
         Cart cart = new Cart();
-        cart.addItem(Item.A);
-        cart.addItem(Item.A);
-        cart.addItem(Item.A);
+        items.forEach(cart::addItem);
 
         Assertions.assertThat(cart.checkout()).isEqualTo(130);
+
+        items = Arrays.asList(Item.A, Item.A, Item.A, Item.A, Item.A, Item.A, Item.A, Item.B, Item.B, Item.B, Item.D, Item.C);
+
+        Cart anotherCart = new Cart();
+        items.forEach(anotherCart::addItem);
+
+        Assertions.assertThat(anotherCart.checkout()).isEqualTo(420);
     }
 
 }

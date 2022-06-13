@@ -6,7 +6,7 @@ public class PriceCalculator {
     private final Set<Discount> discountPrice;
 
     public PriceCalculator() {
-        discountPrice = Set.of(new DiscountedItem(Item.A, 3, 130));
+        discountPrice = Set.of(new DiscountedItem(Item.A, 3, 130), new DiscountedItem(Item.B, 2, 45));
     }
 
     public Integer getPrice(Item item, Integer quantities) {
