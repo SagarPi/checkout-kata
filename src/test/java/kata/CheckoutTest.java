@@ -19,14 +19,21 @@ public class CheckoutTest {
     public CheckoutTest() {
         priceList = new HashMap<>();
         priceList.put(Item.A, 50);
+        priceList.put(Item.B, 30);
     }
 
     @Test
     void CheckoutShouldGivePriceWithoutDiscountWhenBuyingSingleItem() {
         Market market = new Market(priceList);
         market.buyItem(Item.A);
-        Integer checkoutPrice = market.checkout();
+        Integer checkoutPriceForSingleItemA = market.checkout();
 
-        Assertions.assertThat(checkoutPrice).isEqualTo(50);
+        Assertions.assertThat(checkoutPriceForSingleItemA).isEqualTo(50);
+
+        Market sameMarket = new Market(priceList);
+        sameMarket.buyItem(Item.B);
+
+        Integer checkoutPriceForSingleItemB = sameMarket.checkout();
+        Assertions.assertThat(checkoutPriceForSingleItemB).isEqualTo(30);
     }
 }

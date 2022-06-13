@@ -1,5 +1,5 @@
 package kata;
 
 public enum Item {
-    A
+    B, A
 }
