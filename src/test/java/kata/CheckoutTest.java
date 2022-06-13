@@ -14,22 +14,22 @@ import com.github.larseckart.tcr.CommitOnGreenExtension;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class CheckoutTest {
     @Test
-    void CheckoutShouldGivePriceWithoutDiscountWhenBuyingSingleItem() {
+    void checkoutShouldGivePriceWithoutDiscountWhenBuyingSingleItem() {
         Cart cart = new Cart();
-        cart.buyItem(Item.A);
+        cart.addItem(Item.A);
         Integer checkoutPriceForSingleItemA = cart.checkout();
 
         Assertions.assertThat(checkoutPriceForSingleItemA).isEqualTo(Item.A.getPrice());
 
         Cart anotherCart = new Cart();
-        anotherCart.buyItem(Item.B);
+        anotherCart.addItem(Item.B);
 
         Integer checkoutPriceForSingleItemB = anotherCart.checkout();
         Assertions.assertThat(checkoutPriceForSingleItemB).isEqualTo(Item.B.getPrice());
     }
 
     @Test
-    void CheckoutMultipleSingleItemsShouldReturnAdditionOfPriceOfEachItems() {
+    void checkoutMultipleSingleItemsShouldReturnAdditionOfPriceOfEachItems() {
         HashSet<Item> allSingleItems = new HashSet<>();
         allSingleItems.add(Item.A);
         allSingleItems.add(Item.B);
@@ -37,10 +37,20 @@ public class CheckoutTest {
         allSingleItems.add(Item.D);
 
         Cart cart = new Cart();
-        allSingleItems.forEach(cart::buyItem);
+        allSingleItems.forEach(cart::addItem);
 
         Integer estimatedPriceOfAllSingleItems = allSingleItems.stream().mapToInt(Item::getPrice).sum();
         Assertions.assertThat(cart.checkout()).isEqualTo(estimatedPriceOfAllSingleItems);
+    }
+
+    @Test
+    void shouldCalculatePriceOfMultipleItemAsPerDiscountedRate() {
+        Cart cart = new Cart();
+        cart.addItem(Item.A);
+        cart.addItem(Item.A);
+        cart.addItem(Item.A);
+
+        Assertions.assertThat(cart.checkout()).isEqualTo(130);
     }
 
 }

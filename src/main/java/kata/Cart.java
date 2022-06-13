@@ -1,17 +1,26 @@
 package kata;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class Cart {
+    private final HashMap<Item, Integer> itemsWithPurchasedQuantity = new HashMap<>();
 
-    private final List<Item> items = new ArrayList<>();
+    private final PriceCalculator priceCalculator = new PriceCalculator();
 
-    public void buyItem(Item item) {
-        items.add(item);
+    public void addItem(Item item) {
+        if (!itemsWithPurchasedQuantity.containsKey(item)) {
+            itemsWithPurchasedQuantity.put(item, 1);
+            return;
+        }
+
+        Integer previouslyPurchasedQuantities = itemsWithPurchasedQuantity.get(item);
+        itemsWithPurchasedQuantity.put(item, previouslyPurchasedQuantities + 1);
     }
 
     public Integer checkout() {
-        return items.stream().mapToInt(Item::getPrice).sum();
+        final Integer[] totalPrice = { 0 };
+
+        itemsWithPurchasedQuantity.forEach((item, purchasedQuantities) -> totalPrice[0] = totalPrice[0] + priceCalculator.getPrice(item, purchasedQuantities));
+        return totalPrice[0];
     }
 }
