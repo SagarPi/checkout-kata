@@ -1,6 +1,6 @@
 package kata;
 
-public class DiscountedSpecialPrice implements Price {
+public class DiscountedSpecialPrice implements SpecialPrice {
 
     private final Item item;
     private final Integer eligibleQuantity;
@@ -18,12 +18,11 @@ public class DiscountedSpecialPrice implements Price {
 
     @Override
     public Integer getPrice(Integer purchasedQuantities) {
-        if(purchasedQuantities < eligibleQuantity)
+        if (purchasedQuantities < eligibleQuantity)
             return item.getPrice() * purchasedQuantities;
-        else {
-            Integer multipleDiscountedSpecialPrice = discountedSpecialPrice * (purchasedQuantities / eligibleQuantity);
-            Integer remainingItemsPriceForNoSpecialPrice = item.getPrice() * (purchasedQuantities % eligibleQuantity);
-            return multipleDiscountedSpecialPrice + remainingItemsPriceForNoSpecialPrice;
-        }
+
+        Integer multipleDiscountedSpecialPrice = discountedSpecialPrice * (purchasedQuantities / eligibleQuantity);
+        Integer remainingItemsPriceForNoSpecialPrice = item.getPrice() * (purchasedQuantities % eligibleQuantity);
+        return multipleDiscountedSpecialPrice + remainingItemsPriceForNoSpecialPrice;
     }
 }

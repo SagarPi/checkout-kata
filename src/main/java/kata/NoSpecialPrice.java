@@ -1,6 +1,6 @@
 package kata;
 
-public class NoSpecialPrice implements Price {
+public class NoSpecialPrice implements SpecialPrice {
 
     private final Item item;
 

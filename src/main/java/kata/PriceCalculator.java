@@ -3,16 +3,16 @@ package kata;
 import java.util.Set;
 
 public class PriceCalculator {
-    private final Set<Price> pricePrice;
+    private final Set<SpecialPrice> specialPrices;
 
     public PriceCalculator() {
-        pricePrice = Set.of(new DiscountedSpecialPrice(Item.A, 3, 130), new DiscountedSpecialPrice(Item.B, 2, 45));
+        specialPrices = Set.of(new DiscountedSpecialPrice(Item.A, 3, 130), new DiscountedSpecialPrice(Item.B, 2, 45));
     }
 
     public Integer getPrice(Item item, Integer quantities) {
-        Price price = pricePrice
+        SpecialPrice price = specialPrices
                 .stream()
-                .filter(priceOnItem -> priceOnItem.isOn(item))
+                .filter(specialPrice -> specialPrice.isOn(item))
                 .findFirst()
                 .orElseGet(() -> new NoSpecialPrice(item));
 
