@@ -3,19 +3,19 @@ package kata;
 import java.util.Set;
 
 public class PriceCalculator {
-    private final Set<Discount> discountPrice;
+    private final Set<Price> pricePrice;
 
     public PriceCalculator() {
-        discountPrice = Set.of(new DiscountedItem(Item.A, 3, 130), new DiscountedItem(Item.B, 2, 45));
+        pricePrice = Set.of(new DiscountedSpecialPrice(Item.A, 3, 130), new DiscountedSpecialPrice(Item.B, 2, 45));
     }
 
     public Integer getPrice(Item item, Integer quantities) {
-        Discount discount = discountPrice
+        Price price = pricePrice
                 .stream()
-                .filter(discountOnItem -> discountOnItem.isOn(item))
+                .filter(priceOnItem -> priceOnItem.isOn(item))
                 .findFirst()
-                .orElseGet(() -> new NoDiscount(item));
+                .orElseGet(() -> new NoSpecialPrice(item));
 
-        return discount.getPrice(quantities);
+        return price.getPrice(quantities);
     }
 }

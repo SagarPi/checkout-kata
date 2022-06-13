@@ -1,10 +1,10 @@
 package kata;
 
-public class NoDiscount implements Discount {
+public class NoSpecialPrice implements Price {
 
     private final Item item;
 
-    public NoDiscount(Item item) {
+    public NoSpecialPrice(Item item) {
         this.item = item;
     }
 

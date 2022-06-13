@@ -1,6 +1,6 @@
 package kata;
 
-public interface Discount {
+public interface Price {
 
     boolean isOn(Item item);
 
