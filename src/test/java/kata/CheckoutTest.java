@@ -13,27 +13,19 @@ import com.github.larseckart.tcr.CommitOnGreenExtension;
 @ExtendWith(CommitOnGreenExtension.class)
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class CheckoutTest {
-
-    private final HashMap<Item, Integer> priceList;
-
-    public CheckoutTest() {
-        priceList = new HashMap<>();
-        priceList.put(Item.A, 50);
-        priceList.put(Item.B, 30);
-    }
-
     @Test
     void CheckoutShouldGivePriceWithoutDiscountWhenBuyingSingleItem() {
-        Market market = new Market(priceList);
-        market.buyItem(Item.A);
-        Integer checkoutPriceForSingleItemA = market.checkout();
+        Cart cart = new Cart();
+        cart.buyItem(Item.A);
+        Integer checkoutPriceForSingleItemA = cart.checkout();
 
         Assertions.assertThat(checkoutPriceForSingleItemA).isEqualTo(50);
 
-        Market sameMarket = new Market(priceList);
-        sameMarket.buyItem(Item.B);
+        Cart anotherCart = new Cart();
+        anotherCart.buyItem(Item.B);
 
-        Integer checkoutPriceForSingleItemB = sameMarket.checkout();
+        Integer checkoutPriceForSingleItemB = anotherCart.checkout();
         Assertions.assertThat(checkoutPriceForSingleItemB).isEqualTo(30);
     }
+
 }
