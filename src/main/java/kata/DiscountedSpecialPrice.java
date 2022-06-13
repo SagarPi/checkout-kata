@@ -20,8 +20,6 @@ public class DiscountedSpecialPrice implements Price {
     public Integer getPrice(Integer purchasedQuantities) {
         if(purchasedQuantities < eligibleQuantity)
             return item.getPrice() * purchasedQuantities;
-        else if (purchasedQuantities.equals(eligibleQuantity))
-            return discountedSpecialPrice;
         else {
             Integer multipleDiscountedSpecialPrice = discountedSpecialPrice * (purchasedQuantities / eligibleQuantity);
             Integer remainingItemsPriceForNoSpecialPrice = item.getPrice() * (purchasedQuantities % eligibleQuantity);
