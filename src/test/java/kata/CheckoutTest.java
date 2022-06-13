@@ -19,13 +19,13 @@ public class CheckoutTest {
         cart.buyItem(Item.A);
         Integer checkoutPriceForSingleItemA = cart.checkout();
 
-        Assertions.assertThat(checkoutPriceForSingleItemA).isEqualTo(50);
+        Assertions.assertThat(checkoutPriceForSingleItemA).isEqualTo(Item.A.getPrice());
 
         Cart anotherCart = new Cart();
         anotherCart.buyItem(Item.B);
 
         Integer checkoutPriceForSingleItemB = anotherCart.checkout();
-        Assertions.assertThat(checkoutPriceForSingleItemB).isEqualTo(30);
+        Assertions.assertThat(checkoutPriceForSingleItemB).isEqualTo(Item.B.getPrice());
     }
 
 }
