@@ -1,16 +1,17 @@
 package kata;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Cart {
 
-    private Item item;
+    private final List<Item> items = new ArrayList<>();
 
     public void buyItem(Item item) {
-        this.item = item;
+        items.add(item);
     }
 
     public Integer checkout() {
-        return item.getPrice();
+        return items.stream().mapToInt(Item::getPrice).sum();
     }
 }
